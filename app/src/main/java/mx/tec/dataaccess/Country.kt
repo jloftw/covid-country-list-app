@@ -1,5 +1,7 @@
 package mx.tec.dataaccess
 
+import java.io.Serializable
+
 data class Country(
     val id: Int,
     val title: String,
@@ -7,4 +9,4 @@ data class Country(
     val deaths: Int,
     val recovered: Int,
     val flagImageID: Int = 0
-)
+) : Serializable

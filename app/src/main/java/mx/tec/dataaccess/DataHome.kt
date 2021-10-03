@@ -8,7 +8,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.remember
 
 @Composable
-fun DataHomeContent() {
+fun DataHomeContent(navigateToProfile: (Country) -> Unit) {
     val countries = remember {DataProvider.countryList}
     LazyColumn(
         contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp)
@@ -16,9 +16,8 @@ fun DataHomeContent() {
         items(
             items = countries,
             itemContent = {
-                CountryListItem(country = it)
+                CountryListItem(country = it, navigateToProfile)
             }
         )
     }
-
 }

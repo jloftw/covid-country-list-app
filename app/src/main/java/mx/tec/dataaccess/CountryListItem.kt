@@ -1,6 +1,7 @@
 package mx.tec.dataaccess
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -17,7 +18,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun CountryListItem(country: Country) {
+fun CountryListItem(country: Country, navigateToProfile: (Country) -> Unit) {
     Card(
         modifier = Modifier
             .padding(horizontal = 8.dp, vertical = 8.dp)
@@ -26,7 +27,9 @@ fun CountryListItem(country: Country) {
         backgroundColor = Color.White,
         shape = RoundedCornerShape(corner = CornerSize(16.dp))
     ) {
-        Row {
+        Row(
+            modifier = Modifier.clickable {navigateToProfile(country)}
+        ) {
             CountryFlag(country = country)
             Column(
                 modifier = Modifier
