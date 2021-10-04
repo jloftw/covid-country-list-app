@@ -16,6 +16,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import android.graphics.drawable.Drawable
+import androidx.compose.ui.graphics.asImageBitmap
+import java.io.InputStream
+import java.lang.Exception
+import java.net.URL
+
 
 @Composable
 fun CountryListItem(country: Country, navigateToProfile: (Country) -> Unit) {
@@ -47,13 +53,17 @@ fun CountryListItem(country: Country, navigateToProfile: (Country) -> Unit) {
 
 @Composable
 fun CountryFlag(country: Country) {
-    Image(
-        painter = painterResource(id = R.drawable.ic_launcher_background),
-        contentDescription = null,
-        contentScale = ContentScale.Crop,
-        modifier = Modifier
-            .padding(8.dp)
-            .size(84.dp)
-            .clip(RoundedCornerShape(corner = CornerSize(16.dp)))
-    )
+    val image = loadPicture(url = country.flagImageID, defaultImage = R.drawable.ic_launcher_background).value
+    image?.let { img ->
+        Image(
+            bitmap = img.asImageBitmap(),
+            contentDescription = null,
+            contentScale = ContentScale.Crop,
+            modifier = Modifier
+                .padding(8.dp)
+                .size(84.dp)
+                .clip(RoundedCornerShape(corner = CornerSize(16.dp)))
+        )
+    }
 }
+

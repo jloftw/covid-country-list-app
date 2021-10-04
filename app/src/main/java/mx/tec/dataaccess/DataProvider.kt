@@ -7,7 +7,7 @@ object DataProvider {
             cases = 100000,
             deaths = 11111134,
             recovered = 1111111,
-            flagImageID = ""
+            flagImageID = "https://disease.sh/assets/img/flags/af.png"
         )
     )
 }

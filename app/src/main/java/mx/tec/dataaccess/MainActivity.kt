@@ -1,17 +1,14 @@
 package mx.tec.dataaccess
 
 import android.os.Bundle
-import android.os.Handler
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.core.content.ContextCompat.startActivity
 import com.android.volley.Request
 import com.android.volley.toolbox.JsonArrayRequest
 import mx.tec.dataaccess.ui.theme.DataAccessTheme
@@ -37,7 +34,7 @@ class MainActivity : ComponentActivity() {
 
                         val tmp = Country(title,cases,deaths,recovered,flag)
                         DataProvider.countryList.add(tmp)
-                        Log.d("Request","during")
+                        Log.d("Request",title)
                     }
                 }catch (e: JSONException) {
                     Log.e("JsonException",e.toString())
@@ -56,7 +53,6 @@ class MainActivity : ComponentActivity() {
         setContent {
             DataAccessTheme {
                 Surface(color = MaterialTheme.colors.background) {
-                    getCountryInfo(this)
                     MyApp {
                         startActivity(CountryProfile.newIntent(this, it))
                     }
@@ -67,7 +63,7 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun MyApp(navigateToProfile: (Country) -> Unit) {
+fun MyApp(navigateToProfile: (Country) -> Unit = {}) {
     Scaffold(
         content = {
             DataHomeContent(navigateToProfile = navigateToProfile)
@@ -79,5 +75,6 @@ fun MyApp(navigateToProfile: (Country) -> Unit) {
 @Composable
 fun DefaultPreview() {
     DataAccessTheme {
+        MyApp()
     }
 }

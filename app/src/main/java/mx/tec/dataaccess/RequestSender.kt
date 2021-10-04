@@ -2,11 +2,8 @@ package mx.tec.dataaccess
 
 import android.content.Context
 import android.util.Log
-import android.widget.Toast
 import com.android.volley.Request
 import com.android.volley.toolbox.JsonArrayRequest
-import com.android.volley.toolbox.Volley
-import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
 
@@ -27,7 +24,7 @@ fun getCountryInfo(context: Context) {
 
                     val tmp = Country(title,cases,deaths,recovered,flag)
                     DataProvider.countryList.add(tmp)
-                    Log.d("Request","during")
+                    Log.d("Request",title)
                 }
             }catch (e: JSONException) {
                 Log.e("JsonException",e.toString())

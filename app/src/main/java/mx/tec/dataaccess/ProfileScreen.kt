@@ -10,6 +10,7 @@ import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -43,14 +44,17 @@ private fun ProfileHeader(
     country: Country,
     containerHeight: Dp
 ) {
-    Image(
-        modifier = Modifier
-            .heightIn(max = containerHeight / 2)
-            .fillMaxWidth(),
-        painter = painterResource(id = R.drawable.ic_launcher_background),
-        contentScale = ContentScale.Crop,
-        contentDescription = null
-    )
+    val image = loadPicture(url = country.flagImageID, defaultImage = R.drawable.ic_launcher_background).value
+    image?.let { img ->
+        Image(
+            modifier = Modifier
+                .heightIn(max = containerHeight / 2)
+                .fillMaxWidth(),
+            bitmap = img.asImageBitmap(),
+            contentScale = ContentScale.Crop,
+            contentDescription = null
+        )
+    }
 }
 
 @Composable
