@@ -48,7 +48,7 @@ fun CountryListItem(country: Country, navigateToProfile: (Country) -> Unit) {
 @Composable
 fun CountryFlag(country: Country) {
     Image(
-        painter = painterResource(id = country.flagImageID),
+        painter = painterResource(id = R.drawable.ic_launcher_background),
         contentDescription = null,
         contentScale = ContentScale.Crop,
         modifier = Modifier

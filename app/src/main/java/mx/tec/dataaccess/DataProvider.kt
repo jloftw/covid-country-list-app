@@ -1,94 +1,38 @@
 package mx.tec.dataaccess
 
-object DataProvider {
-    val countryList = listOf(
-        Country(
-            id = 1,
-            title = "America",
-            cases = 1000000,
-            deaths = 1000,
-            recovered = 1111,
-            flagImageID = R.drawable.ic_launcher_background
-        ),
-        Country(
-            id = 1,
-            title = "Mexico",
-            cases = 1000500,
-            deaths = 1000,
-            recovered = 1111,
-            flagImageID = R.drawable.ic_launcher_background
-        ),
-        Country(
-            id = 1,
-            title = "Canada",
-            cases = 1060000,
-            deaths = 1000,
-            recovered = 1111,
-            flagImageID = R.drawable.ic_launcher_background
-        ),
-        Country(
-            id = 1,
-            title = "China",
-            cases = 1000007,
-            deaths = 1000,
-            recovered = 1111,
-            flagImageID = R.drawable.ic_launcher_background
-        ),
-        Country(
-            id = 1,
-            title = "China",
-            cases = 1000007,
-            deaths = 1000,
-            recovered = 1111,
-            flagImageID = R.drawable.ic_launcher_background
-        ),
-        Country(
-            id = 1,
-            title = "China",
-            cases = 1000007,
-            deaths = 1000,
-            recovered = 1111,
-            flagImageID = R.drawable.ic_launcher_background
-        ),
-        Country(
-            id = 1,
-            title = "China",
-            cases = 1000007,
-            deaths = 1000,
-            recovered = 1111,
-            flagImageID = R.drawable.ic_launcher_background
-        ),
-        Country(
-            id = 1,
-            title = "China",
-            cases = 1000007,
-            deaths = 1000,
-            recovered = 1111,
-            flagImageID = R.drawable.ic_launcher_background
-        ),
-        Country(
-            id = 1,
-            title = "China",
-            cases = 1000007,
-            deaths = 1000,
-            recovered = 1111,
-            flagImageID = R.drawable.ic_launcher_background
-        ),
-        Country(
-            id = 1,
-            title = "China",
-            cases = 1000007,
-            deaths = 1000,
-            recovered = 1111,
-            flagImageID = R.drawable.ic_launcher_background
-        ),
-        Country(
-            id = 1,
-            title = "China",
-            cases = 1000007,
-            deaths = 1000,
-            recovered = 1111,
-            flagImageID = R.drawable.ic_launcher_background
-        )
+import android.util.Log
+import com.android.volley.Request
+import com.android.volley.toolbox.JsonArrayRequest
+import org.json.JSONException
+import org.json.JSONObject
+
+fun getCountryInfo() {
+    val url = "https://disease.sh/v3/covid-19/countries"
+    val jsonArrayRequest = JsonArrayRequest( Request.Method.GET, url, null,
+        {response ->
+            try {
+                for (i in 0 until response.length()) {
+                    val country: JSONObject = response.getJSONObject(i)
+                    val title = country.getString("country")
+                    val cases = country.getInt("cases")
+                    val deaths = country.getInt("deaths")
+                    val recovered = country.getInt("recovered")
+                    val flag = country.getString("flag")
+
+                    val tmp = Country(1, title,cases,deaths,recovered,"flag")
+                    DataProvider.countryList.add(tmp)
+                    Log.e("Country: $title, Cases $cases",title)
+                }
+            }catch (e: JSONException) {
+                Log.e("JsonException",e.toString())
+            }
+        },
+        { error ->
+            Log.e("ArrayRequest",error.cause.toString())
+        }
     )
+}
+
+object DataProvider {
+    var countryList = mutableListOf<Country>()
 }

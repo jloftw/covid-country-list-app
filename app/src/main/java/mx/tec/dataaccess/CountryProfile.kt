@@ -5,7 +5,6 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.compose.setContent
-import androidx.compose.material.Text
 import mx.tec.dataaccess.ui.theme.DataAccessTheme
 
 class CountryProfile : AppCompatActivity() {

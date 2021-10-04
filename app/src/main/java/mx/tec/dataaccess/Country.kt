@@ -8,5 +8,5 @@ data class Country(
     val cases: Int,
     val deaths: Int,
     val recovered: Int,
-    val flagImageID: Int = 0
+    val flagImageID: String
 ) : Serializable
