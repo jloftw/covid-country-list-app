@@ -53,7 +53,7 @@ fun CountryListItem(country: Country, navigateToProfile: (Country) -> Unit) {
 
 @Composable
 fun CountryFlag(country: Country) {
-    val image = loadPicture(url = country.flagImageID, defaultImage = R.drawable.ic_launcher_background).value
+    val image = loadPicture(url = country.countryInfo.flag, defaultImage = R.drawable.ic_launcher_background).value
     image?.let { img ->
         Image(
             bitmap = img.asImageBitmap(),

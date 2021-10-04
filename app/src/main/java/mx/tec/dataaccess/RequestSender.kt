@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.Log
 import com.android.volley.Request
 import com.android.volley.toolbox.JsonArrayRequest
+import com.google.gson.Gson
 import org.json.JSONException
 import org.json.JSONObject
 
@@ -13,6 +14,9 @@ fun getCountryInfo(context: Context) {
     val jsonArrayRequest = JsonArrayRequest( Request.Method.GET, url, null,
         {response ->
             try {
+                /*val countries = Gson().fromJson(response,Country::class.java)
+                DataProvider.countryList.addAll(countries)*/
+
                 for (i in 0 until response.length()) {
                     val country: JSONObject = response.getJSONObject(i)
                     val title = country.getString("country")
@@ -22,7 +26,7 @@ fun getCountryInfo(context: Context) {
                     val info = country.getJSONObject("countryInfo")
                     val flag = info.getString("flag")
 
-                    val tmp = Country(title,cases,deaths,recovered,flag)
+                    val tmp = Country(title,cases,deaths,recovered,CountryInfo(flag))
                     DataProvider.countryList.add(tmp)
                     Log.d("Request",title)
                 }
@@ -35,9 +39,4 @@ fun getCountryInfo(context: Context) {
         }
     )
     VolleySingleton.getInstance(context).addToRequestQueue(jsonArrayRequest)
-
-    for (i in 0 until DataProvider.countryList.size) {
-        Log.d("Country", DataProvider.countryList[i].title)
-    }
-    Log.d("Request","after")
 }
